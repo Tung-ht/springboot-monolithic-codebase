@@ -1,6 +1,5 @@
 package nta.bookstore.api.common.exception;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import nta.bookstore.api.common.constant.ResponseConst;

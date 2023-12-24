@@ -42,12 +42,12 @@ public class UserServiceImpl implements UserService {
                 .email(registration.getEmail())
                 .password(passwordEncoder.encode(registration.getPassword()))
                 .fullName(registration.getFullName())
-//                .status(EStatus.INACTIVE)
-                .status(EStatus.ACTIVE)
+                .status(EStatus.INACTIVE)
+//                .status(EStatus.ACTIVE)
                 .role(ERole.ROLE_USER)
                 .build();
         userEntity = userRepository.save(userEntity);
-//        mailSender.sendMail(userEntity.getEmail(), EUserAction.VERIFY_EMAIL);
+        mailSender.sendMail(userEntity.getEmail(), EUserAction.VERIFY_EMAIL);
         return UserDto.RegistrationResp.builder().email(userEntity.getEmail()).build();
     }
 

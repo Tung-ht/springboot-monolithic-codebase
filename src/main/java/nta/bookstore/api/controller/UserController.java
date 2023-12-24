@@ -16,7 +16,8 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
+    @Operation(summary = "api register user account. System only have one admin")
+    @PostMapping("/register")
     public AppResponse<UserDto.RegistrationResp> registration(@Valid @RequestBody UserDto.RegistrationReq registration) {
         return AppResponse.ok(userService.registration(registration));
     }

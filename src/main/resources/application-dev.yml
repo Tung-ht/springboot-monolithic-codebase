@@ -10,6 +10,8 @@ app:
       sign-key: signKey012345678901234567890123456789
       # seconds
       valid-time: 36000
+  otp:
+    valid-time: 180
 
 mail-sender:
   host: smtp.gmail.com

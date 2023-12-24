@@ -35,4 +35,9 @@ public class ResponseConst {
     public final static String INVALID_DATA_CODE = "00040";
     public final static String INVALID_DATA = "invalid_data";
     public final static String WRONG_OTP = "wrong_otp";
+
+    // image_error_code
+    public final static String IMAGE_ERROR_CODE = "00050";
+    public final static String IMAGE_ERROR_MESSAGE_NOT_EXIST ="Image not exist";
+    public final static String IMAGE_ERROR_MESSAGE_GET_IMAGE ="Error occurs when get image";
 }
