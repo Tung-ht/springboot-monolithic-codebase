@@ -26,6 +26,7 @@ public class ResponseConst {
     // not found
     public final static String NOT_FOUND_CODE = "00030";
     public final static String USER_NOT_FOUND = "user_not_found";
+    public final static String BOOK_NOT_FOUND = "book_not_found";
 
     // duplicate
     public final static String DUPLICATE_CODE = "00030";

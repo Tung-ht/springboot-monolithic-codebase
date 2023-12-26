@@ -1,5 +1,6 @@
 package nta.bookstore.api.common.utils;
 
+import lombok.RequiredArgsConstructor;
 import nta.bookstore.api.common.constant.ResponseConst;
 import nta.bookstore.api.common.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,10 @@ import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class DtoValidator {
-    @Autowired
-    private Validator validator;
+    private final Validator validator;
 
     public void validate(Object dto) {
         List<String> errors = new ArrayList<>();

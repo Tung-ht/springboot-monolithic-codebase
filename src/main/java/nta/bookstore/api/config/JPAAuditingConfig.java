@@ -6,7 +6,6 @@ import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @Configuration

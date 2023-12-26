@@ -36,12 +36,12 @@ public class Base64ToMultipartFile implements MultipartFile {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         return fileContent;
     }
 
     @Override
-    public InputStream getInputStream() throws IOException {
+    public InputStream getInputStream() {
         return new ByteArrayInputStream(fileContent);
     }
 
@@ -56,7 +56,7 @@ public class Base64ToMultipartFile implements MultipartFile {
     private final String extension;     // ex: png
     private final String contentType;   // ex: image/png
 
-//    example of data source: <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEU...' />
+    //    example of data source: <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEU...' />
     public Base64ToMultipartFile(String source) {
         String dataUri = source.split(",")[0];
         String base64 = source.split(",")[1];
