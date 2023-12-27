@@ -8,6 +8,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,11 +25,11 @@ public class ImageService {
         Files.createDirectories(this.fileStorageLocation);
     }
 
-    public String uploadImage(MultipartFile file, String customFileName) {
+    public String uploadImage(MultipartFile image, String customFileName) {
         try {
-            if (file != null) {
+            if (image != null) {
                 Path targetLocation = this.fileStorageLocation.resolve(customFileName);
-                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(image.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
                 return customFileName;
             } else {
                 return "";
@@ -77,5 +78,11 @@ public class ImageService {
             log.error("get_base64_from_multipart_failed: {}", exception.getMessage());
             return null;
         }
+    }
+
+    public boolean deleteImage(String imageName) {
+        Path imagePath = this.fileStorageLocation.resolve(imageName).normalize();
+        File image = imagePath.toFile();
+        return image.delete();
     }
 }

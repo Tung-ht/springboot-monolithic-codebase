@@ -14,7 +14,7 @@ public class BookDto {
     private String title;
     private String author;
     private String description;
-    private String imgUrl;
+    private String imageBase64Src;
     private ECategory category;
     private Long soldQuantity;
     private Long remainingQuantity;

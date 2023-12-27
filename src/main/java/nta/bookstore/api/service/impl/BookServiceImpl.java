@@ -31,13 +31,22 @@ public class BookServiceImpl implements BookService {
     public BookDto getBookById(Long id) {
         BookEntity book = bookRepository.findById(id)
                 .orElseThrow(() -> new AppException(ResponseConst.NOT_FOUND_CODE, ResponseConst.BOOK_NOT_FOUND));
-        return bookMapper.toDto(book);
+        BookDto dto = bookMapper.toDto(book);
+        dto.setImageBase64Src(imageService.loadImageAsBase64Source(book.getImgUrl()));
+        return dto;
     }
 
     @Override
     public List<BookDto> searchBooks(BookDto.SearchParam searchParam) {
         Pageable pageable = DataUtils.mapPageDtoToPageable(searchParam.getPage(), searchParam.getSize());
-        return bookMapper.toDtos(bookRepository.searchBooks(searchParam.getTitle(), searchParam.getAuthor(), searchParam.getCategory(), pageable));
+        return bookRepository.searchBooks(searchParam.getTitle(), searchParam.getAuthor(), searchParam.getCategory(), pageable)
+                .stream()
+                .map(book -> {
+                    BookDto dto = bookMapper.toDto(book);
+                    dto.setImageBase64Src(imageService.loadImageAsBase64Source(book.getImgUrl()));
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -51,7 +60,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(Long id) {
-        bookRepository.deleteById(id);
+        BookEntity book = bookRepository.findById(id)
+                .orElseThrow(() -> new AppException(ResponseConst.NOT_FOUND_CODE, ResponseConst.BOOK_NOT_FOUND));
+        bookRepository.delete(book);
+        imageService.deleteImage(book.getImgUrl());
     }
 
     @Override

@@ -35,6 +35,7 @@ public class WebSecurityConfiguration {
             "/users/**",
             "/images/**",
             "/categories/**",
+            "/books/**"
     };
 
     final String[] adminEndpoints = {
