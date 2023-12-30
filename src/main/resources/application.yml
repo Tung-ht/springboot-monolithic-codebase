@@ -1,14 +1,15 @@
 server:
   servlet:
     context-path: /api
-  port: 8888
+#  port: 8888
+  port: ${SPRING_PROFILES_PORT}
 
 spring:
   profiles:
-    active: local
-
+#    active: local
+    active: ${SPRING_PROFILES_ACTIVE}
   jpa:
-    hibernate.ddl-auto: none
+    hibernate.ddl-auto: update
     generate-ddl: false
     show-sql: false
     properties:

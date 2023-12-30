@@ -32,10 +32,12 @@ public class WebSecurityConfiguration {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/users/**",
             "/images/**",
+            "/users/**",
+            "/books/**",
             "/categories/**",
-            "/books/**"
+            "/orders/**",
+            "/shopping-cart-items/**"
     };
 
     final String[] adminEndpoints = {

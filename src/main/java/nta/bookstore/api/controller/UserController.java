@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import nta.bookstore.api.common.enumtype.EUserAction;
 import nta.bookstore.api.dto.AppResponse;
 import nta.bookstore.api.dto.UserDto;
+import nta.bookstore.api.security.AuthUserDetails;
 import nta.bookstore.api.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,5 +41,11 @@ public class UserController {
     public AppResponse<?> sendOTP(@RequestParam(value = "action") EUserAction action, @RequestParam(value = "email") String email) {
         userService.sendOTP(action, email);
         return AppResponse.ok();
+    }
+
+    @Operation(summary = "api send OTP for REGISTRATION and RESET_PASSWORD")
+    @GetMapping("/shipping-info")
+    public AppResponse<UserDto> getUserShippingInfo(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
+        return AppResponse.ok(userService.currentUser(authUserDetails));
     }
 }

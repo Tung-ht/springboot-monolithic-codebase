@@ -22,6 +22,7 @@ public class UserEntity extends BaseEntity {
 
     private String fullName;
     private String phone;
+    @Column(columnDefinition = "TEXT")
     private String address;
 
     // register OTP to validate email

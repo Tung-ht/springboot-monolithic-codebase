@@ -11,7 +11,6 @@ public interface UserService {
 
     UserDto currentUser(AuthUserDetails authUserDetails);
 
-
     String requestVerify(EUserAction action, UserDto.RequestOTP requestOTP);
 
     void sendOTP(EUserAction action, String email);
