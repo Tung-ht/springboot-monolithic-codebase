@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -67,9 +69,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<String> getAllCategories() {
-        return Arrays.stream(ECategory.values())
-                .map(eVal -> eVal.vietnamese)
-                .collect(Collectors.toList());
+    public Map<ECategory, String> getAllCategories() {
+        Map<ECategory, String> result = new HashMap<>();
+        List.of(ECategory.values())
+                .forEach(eCategory -> result.put(eCategory, eCategory.vietnamese));
+        return result;
     }
 }

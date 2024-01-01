@@ -65,3 +65,5 @@ yarn-error.log*
 ### application config
 src/main/resources/application-local.yml
 src/main/resources/application-docker.yml
+
+/images
