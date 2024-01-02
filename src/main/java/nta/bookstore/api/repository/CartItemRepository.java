@@ -1,9 +1,9 @@
 package nta.bookstore.api.repository;
 
-import nta.bookstore.api.entity.ShoppingCartItemEntity;
+import nta.bookstore.api.entity.CartItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ShoppingCartItemRepository extends JpaRepository<ShoppingCartItemEntity, Long> {
+public interface CartItemRepository extends JpaRepository<CartItemEntity, Long> {
 }

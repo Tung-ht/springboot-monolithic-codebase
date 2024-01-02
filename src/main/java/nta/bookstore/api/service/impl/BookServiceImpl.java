@@ -11,15 +11,14 @@ import nta.bookstore.api.dto.BookDto;
 import nta.bookstore.api.entity.BookEntity;
 import nta.bookstore.api.repository.BookRepository;
 import nta.bookstore.api.service.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -39,16 +38,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> searchBooks(BookDto.SearchParam searchParam) {
+    public Page<BookDto> searchBooks(BookDto.SearchParam searchParam) {
         Pageable pageable = DataUtils.mapPageDtoToPageable(searchParam.getPage(), searchParam.getSize());
         return bookRepository.searchBooks(searchParam.getTitle(), searchParam.getAuthor(), searchParam.getCategory(), pageable)
-                .stream()
                 .map(book -> {
                     BookDto dto = bookMapper.toDto(book);
                     dto.setImageBase64Src(imageService.loadImageAsBase64Source(book.getImgUrl()));
                     return dto;
-                })
-                .collect(Collectors.toList());
+                });
     }
 
     @Override

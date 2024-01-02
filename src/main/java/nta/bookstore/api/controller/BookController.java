@@ -5,6 +5,7 @@ import nta.bookstore.api.common.enumtype.ECategory;
 import nta.bookstore.api.dto.AppResponse;
 import nta.bookstore.api.dto.BookDto;
 import nta.bookstore.api.service.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class BookController {
     }
 
     @GetMapping
-    public AppResponse<List<BookDto>> searchBooks(@ModelAttribute BookDto.SearchParam searchParam) {
+    public AppResponse<Page<BookDto>> searchBooks(@ModelAttribute BookDto.SearchParam searchParam) {
         return AppResponse.ok(bookService.searchBooks(searchParam));
     }
 }
