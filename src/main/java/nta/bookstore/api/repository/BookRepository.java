@@ -15,9 +15,9 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b " +
             "FROM BookEntity b " +
-            "WHERE b.title LIKE %:title% " +
-            "AND b.author LIKE %:author% " +
-            "AND b.category = :category " +
+            "WHERE (:title IS NULL OR b.title LIKE %:title%) " +
+            "AND (:author IS NULL OR b.author LIKE %:author%) " +
+            "AND (:category IS NULL OR b.category = :category) " +
             "ORDER BY b.title ASC ")
     List<BookEntity> searchBooks(String title,
                                  String author,
