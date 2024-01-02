@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
 
         return UserDto.LoginResp.builder()
                 .accessToken(jwt)
+                .id(userEntity.getId())
                 .fullName(userEntity.getFullName())
                 .role(userEntity.getRole())
                 .build();

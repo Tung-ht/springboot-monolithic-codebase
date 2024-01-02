@@ -32,6 +32,7 @@ public class UserDto {
     @Setter
     @Builder
     public static class LoginResp {
+        private Long id;
         private String fullName;
         private ERole role;
         private String accessToken;

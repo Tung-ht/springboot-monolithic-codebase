@@ -30,4 +30,10 @@ public class ShoppingCartController {
     public AppResponse<CartItemDto> updateCart(CartItemDto.Update updateDto) {
         return AppResponse.ok(cartService.updateCartItem(updateDto));
     }
+
+    @DeleteMapping
+    public AppResponse<?> deleteCartItem(CartItemDto.Delete deleteDto) {
+        cartService.deleteCartItem(deleteDto);
+        return AppResponse.ok();
+    }
 }

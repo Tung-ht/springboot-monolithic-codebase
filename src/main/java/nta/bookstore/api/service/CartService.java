@@ -10,5 +10,7 @@ public interface CartService {
 
     CartItemDto createCartItem(CartItemDto.Create createDto);
 
-    CartItemDto updateCartItem(CartItemDto.Update update);
+    CartItemDto updateCartItem(CartItemDto.Update updateDto);
+
+    void deleteCartItem(CartItemDto.Delete deleteDto);
 }
