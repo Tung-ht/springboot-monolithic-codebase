@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CartItemMapper {
+    @Mapping(target = "cartItemId", source = "id")
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "bookId", source = "book.id")
     @Mapping(target = "title", source = "book.title")

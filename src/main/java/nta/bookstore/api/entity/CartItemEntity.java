@@ -1,14 +1,14 @@
 package nta.bookstore.api.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "shopping_cart_item")
 public class CartItemEntity extends BaseEntity {

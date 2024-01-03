@@ -54,7 +54,9 @@ public class BookServiceImpl implements BookService {
         String imageName = imageService.uploadImage(bookDto.getImgFile(), CommonConst.BOOK_IMAGE_PREFIX + entity.getId());
         entity.setImgUrl(imageName);
         bookRepository.save(entity);
-        return bookMapper.toDto(entity);
+        BookDto dto = bookMapper.toDto(entity);
+        dto.setImageBase64Src(imageService.loadImageAsBase64Source(entity.getImgUrl()));
+        return dto;
     }
 
     @Override

@@ -1,16 +1,17 @@
 package nta.bookstore.api.entity;
 
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import nta.bookstore.api.common.enumtype.ECategory;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @Entity
 @Table(name = "books")
@@ -28,17 +29,4 @@ public class BookEntity extends BaseEntity {
     private Long remainingQuantity;
     private Double importingPrice;
     private Double sellingPrice;
-
-    @Builder
-    public BookEntity(String title, String author, String description, String imgUrl, ECategory category, Long soldQuantity, Long remainingQuantity, Double importingPrice, Double sellingPrice) {
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.imgUrl = imgUrl;
-        this.category = category;
-        this.soldQuantity = soldQuantity;
-        this.remainingQuantity = remainingQuantity;
-        this.importingPrice = importingPrice;
-        this.sellingPrice = sellingPrice;
-    }
 }

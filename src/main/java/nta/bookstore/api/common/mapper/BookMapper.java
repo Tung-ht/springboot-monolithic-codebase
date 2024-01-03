@@ -3,6 +3,7 @@ package nta.bookstore.api.common.mapper;
 import nta.bookstore.api.dto.BookDto;
 import nta.bookstore.api.entity.BookEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
