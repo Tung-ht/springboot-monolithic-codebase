@@ -3,6 +3,8 @@ package nta.bookstore.api.service;
 import nta.bookstore.api.common.enumtype.EUserAction;
 import nta.bookstore.api.dto.UserDto;
 import nta.bookstore.api.security.AuthUserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     UserDto.RegistrationResp registration(UserDto.RegistrationReq registration);
@@ -14,4 +16,6 @@ public interface UserService {
     String requestVerify(EUserAction action, UserDto.RequestOTP requestOTP);
 
     void sendOTP(EUserAction action, String email);
+
+    Page<UserDto> getUsersDashboard(Pageable pageable);
 }

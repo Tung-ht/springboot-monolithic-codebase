@@ -7,6 +7,8 @@ import nta.bookstore.api.dto.AppResponse;
 import nta.bookstore.api.dto.UserDto;
 import nta.bookstore.api.security.AuthUserDetails;
 import nta.bookstore.api.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +49,11 @@ public class UserController {
     @GetMapping("/shipping-info")
     public AppResponse<UserDto> getUserShippingInfo(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
         return AppResponse.ok(userService.currentUser(authUserDetails));
+    }
+
+    @Operation(summary = "api get list user-info dashboard management")
+    @GetMapping("/dashboard")
+    public AppResponse<Page<UserDto>> getUsersDashboard(Pageable pageable) {
+        return AppResponse.ok(userService.getUsersDashboard(pageable));
     }
 }

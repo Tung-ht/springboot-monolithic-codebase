@@ -16,6 +16,8 @@ import nta.bookstore.api.repository.UserRepository;
 import nta.bookstore.api.security.AuthUserDetails;
 import nta.bookstore.api.security.JwtUtils;
 import nta.bookstore.api.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,5 +103,11 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException(ResponseConst.USER_NOT_FOUND);
         }
         mailSender.sendMail(email, action);
+    }
+
+    @Override
+    public Page<UserDto> getUsersDashboard(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(userMapper::toDto);
     }
 }

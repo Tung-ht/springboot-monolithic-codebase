@@ -35,15 +35,11 @@ public class WebSecurityConfiguration {
             "/images/**",
             "/users/**",
             "/books/**",
-            "/categories/**",
             "/orders/**",
             "/shopping-cart-items/**"
     };
 
     final String[] adminEndpoints = {
-            "/articles/approve/**",
-            "/articles/pin/**",
-            "/articles/unpin/**",
     };
 
     @Bean
