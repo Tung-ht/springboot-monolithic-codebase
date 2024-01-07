@@ -2,6 +2,9 @@ package nta.bookstore.api.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import nta.bookstore.api.common.enumtype.ECategory;
+import nta.bookstore.api.common.enumtype.EOrderStatus;
+import nta.bookstore.api.common.enumtype.EStatus;
 import nta.bookstore.api.dto.AppResponse;
 import nta.bookstore.api.dto.OrderDto;
 import nta.bookstore.api.security.AuthUserDetails;
@@ -9,7 +12,9 @@ import nta.bookstore.api.service.OrderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -52,5 +57,13 @@ public class OrderController {
     public AppResponse<OrderDto.Detail> updateOrder(@PathVariable("id") Long orderId,
                                                     OrderDto.Update updateDto) {
         return AppResponse.ok(orderService.updateOrder(orderId, updateDto));
+    }
+
+    @GetMapping("/status")
+    public AppResponse<Map<EOrderStatus, String>> getOrderStatus() {
+        Map<EOrderStatus, String> result = new HashMap<>();
+        List.of(EOrderStatus.values())
+                .forEach(orderStatus -> result.put(orderStatus, orderStatus.vietnamese));
+        return AppResponse.ok(result);
     }
 }

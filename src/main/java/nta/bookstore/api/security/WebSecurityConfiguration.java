@@ -43,12 +43,10 @@ public class WebSecurityConfiguration {
 
     final String[] userEndpoints = {
             "/users/shipping-info",
-            "/orders/**",
             "/shopping-cart-items/**",
     };
 
     final String[] adminEndpoints = {
-            "/orders/all-user"
     };
 
     @Bean
