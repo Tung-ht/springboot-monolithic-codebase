@@ -110,4 +110,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll(pageable)
                 .map(userMapper::toDto);
     }
+
+    @Override
+    public UserDto updateUserInfo(AuthUserDetails authUserDetails, UserDto.Update updateDto) {
+        UserEntity userEntity = userRepository.findById(authUserDetails.getId()).orElseThrow(() -> new NotFoundException(ResponseConst.USER_NOT_FOUND));
+        userMapper.updateEntity(userEntity, updateDto);
+        userRepository.save(userEntity);
+        return userMapper.toDto(userEntity);
+    }
 }

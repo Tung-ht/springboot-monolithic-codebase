@@ -33,10 +33,18 @@ public class WebSecurityConfiguration {
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/images/**",
-            "/users/**",
             "/books/**",
+
+            "/users/login",
+            "/users/register",
+            "/users/verify",
+            "/users/send-otp",
+    };
+
+    final String[] userEndpoints = {
+            "/users/shipping-info",
             "/orders/**",
-            "/shopping-cart-items/**"
+            "/shopping-cart-items/**",
     };
 
     final String[] adminEndpoints = {
@@ -52,14 +60,14 @@ public class WebSecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(generalEndpoints).permitAll()
                 .antMatchers(adminEndpoints).hasAuthority(ERole.ROLE_ADMIN.name())
-                .antMatchers("/articles/unapproved").hasAnyAuthority(ERole.ROLE_ADMIN.name(), ERole.ROLE_USER.name())
+                .antMatchers(userEndpoints).hasAuthority(ERole.ROLE_USER.name())
+//                .antMatchers("/articles/unapproved").hasAnyAuthority(ERole.ROLE_ADMIN.name(), ERole.ROLE_USER.name())
                 .antMatchers(HttpMethod.GET, "/books/**").permitAll()
                 .anyRequest().hasAnyAuthority(ERole.ROLE_ADMIN.name(), ERole.ROLE_USER.name())
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 

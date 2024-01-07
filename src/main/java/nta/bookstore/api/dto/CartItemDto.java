@@ -32,7 +32,6 @@ public class CartItemDto {
     public static class Update {
         private Long cartItemId;
         private Long quantity;
-
     }
 
     @Getter

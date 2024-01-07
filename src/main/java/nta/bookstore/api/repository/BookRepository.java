@@ -12,12 +12,10 @@ import org.springframework.stereotype.Repository;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("SELECT b " +
             "FROM BookEntity b " +
-            "WHERE (:title IS NULL OR b.title LIKE %:title%) " +
-            "AND (:author IS NULL OR b.author LIKE %:author%) " +
+            "WHERE (:keyword IS NULL OR b.title LIKE %:keyword% OR b.author LIKE %:keyword%) " +
             "AND (:category IS NULL OR b.category = :category) " +
             "ORDER BY b.title ASC ")
-    Page<BookEntity> searchBooks(String title,
-                                 String author,
+    Page<BookEntity> searchBooks(String keyword,
                                  ECategory category,
                                  Pageable pageable);
 }

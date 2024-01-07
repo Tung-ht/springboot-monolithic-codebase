@@ -56,6 +56,7 @@ public class CartServiceImpl implements CartService {
                     .builder()
                     .book(book)
                     .user(user)
+                    .quantity(1L)
                     .build();
             dto = cartItemMapper.toDto(cartItemRepository.save(newItem));
         } else {

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import nta.bookstore.api.common.enumtype.EOrderStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -22,6 +23,8 @@ public class OrderDto {
         private String address;
         private EOrderStatus orderStatus;
         private Long totalValue;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 
     @Getter
@@ -36,12 +39,17 @@ public class OrderDto {
         private EOrderStatus orderStatus;
         private Long totalValue;
         private List<OrderDetailDto> orderDetailDtos;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 
     @Getter
     @Setter
     public static class Create {
-        List<Long> cartItemIds;
+        private String email;
+        private String fullName;
+        private String phone;
+        private String address;
     }
 
     @Getter

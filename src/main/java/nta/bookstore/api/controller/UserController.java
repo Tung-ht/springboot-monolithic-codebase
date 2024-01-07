@@ -45,7 +45,7 @@ public class UserController {
         return AppResponse.ok();
     }
 
-    @Operation(summary = "api send OTP for REGISTRATION and RESET_PASSWORD")
+    @Operation(summary = "api get shipping-info")
     @GetMapping("/shipping-info")
     public AppResponse<UserDto> getUserShippingInfo(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
         return AppResponse.ok(userService.currentUser(authUserDetails));
@@ -55,5 +55,10 @@ public class UserController {
     @GetMapping("/dashboard")
     public AppResponse<Page<UserDto>> getUsersDashboard(Pageable pageable) {
         return AppResponse.ok(userService.getUsersDashboard(pageable));
+    }
+
+    @PutMapping
+    public AppResponse<UserDto> updateUserInfo(@AuthenticationPrincipal AuthUserDetails authUserDetails, UserDto.Update updateDto) {
+        return AppResponse.ok(userService.updateUserInfo(authUserDetails, updateDto));
     }
 }

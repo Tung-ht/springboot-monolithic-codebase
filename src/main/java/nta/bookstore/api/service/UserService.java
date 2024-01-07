@@ -18,4 +18,6 @@ public interface UserService {
     void sendOTP(EUserAction action, String email);
 
     Page<UserDto> getUsersDashboard(Pageable pageable);
+
+    UserDto updateUserInfo(AuthUserDetails authUserDetails, UserDto.Update updateDto);
 }

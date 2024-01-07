@@ -28,6 +28,7 @@ public class ResponseConst {
     public final static String USER_NOT_FOUND = "user_not_found";
     public final static String BOOK_NOT_FOUND = "book_not_found";
     public final static String CART_ITEM_NOT_FOUND = "cart_item_not_found";
+    public final static String ORDER_NOT_FOUND = "order_not_found";
 
     // duplicate
     public final static String DUPLICATE_CODE = "00030";
@@ -38,8 +39,12 @@ public class ResponseConst {
     public final static String INVALID_DATA = "invalid_data";
     public final static String WRONG_OTP = "wrong_otp";
 
+    // no more books left
+    public final static String NO_MORE_BOOKS_CODE = "00060";
+    public static String NO_MORE_BOOKS_TEMPLATE = "Cửa hàng chỉ còn lại %s sản phẩm sách: %s. Bạn hãy chỉnh sửa lại giỏ hàng!";
+
     // image_error_code
     public final static String IMAGE_ERROR_CODE = "00050";
-    public final static String IMAGE_ERROR_MESSAGE_NOT_EXIST ="Image not exist";
-    public final static String IMAGE_ERROR_MESSAGE_GET_IMAGE ="Error occurs when get image";
+    public final static String IMAGE_ERROR_MESSAGE_NOT_EXIST ="image_error_message_not_exist";
+    public final static String IMAGE_ERROR_MESSAGE_GET_IMAGE ="image_error_message_get_image";
 }

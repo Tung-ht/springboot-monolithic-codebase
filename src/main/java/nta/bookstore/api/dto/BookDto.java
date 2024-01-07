@@ -41,8 +41,8 @@ public class BookDto {
     @Setter
     @Builder
     public static class SearchParam {
-        private String title;
-        private String author;
+        // title or author
+        private String keyword;
         private ECategory category;
         private Integer page;
         private Integer size;

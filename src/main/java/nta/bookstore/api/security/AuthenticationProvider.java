@@ -11,9 +11,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationProvider {
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtUtils jwtUtils;
 
     public Authentication getAuthentication(String token) {
         return Optional.ofNullable(token)
+                .map(jwtUtils::getSub)
                 .map(userDetailsService::loadUserByUsername)
                 .map(userDetails ->
                         new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities()))

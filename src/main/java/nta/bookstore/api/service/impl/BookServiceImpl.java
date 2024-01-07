@@ -40,7 +40,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<BookDto> searchBooks(BookDto.SearchParam searchParam) {
         Pageable pageable = DataUtils.mapPageDtoToPageable(searchParam.getPage(), searchParam.getSize());
-        return bookRepository.searchBooks(searchParam.getTitle(), searchParam.getAuthor(), searchParam.getCategory(), pageable)
+        return bookRepository.searchBooks(searchParam.getKeyword(), searchParam.getCategory(), pageable)
                 .map(book -> {
                     BookDto dto = bookMapper.toDto(book);
                     dto.setImageBase64Src(imageService.loadImageAsBase64Source(book.getImgUrl()));
