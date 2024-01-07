@@ -39,7 +39,7 @@ public class OrderController {
 
     @Operation(summary = "Call this api to check the cart before making order. \n" +
             "Throw exception when store does not have enough products")
-    @GetMapping
+    @GetMapping("/validate-cart")
     public AppResponse<?> checkCartItem(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
         orderService.checkCartItems(authUserDetails);
         return AppResponse.ok();
