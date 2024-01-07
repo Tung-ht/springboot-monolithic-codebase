@@ -2,6 +2,8 @@ package nta.bookstore.api.repository;
 
 import nta.bookstore.api.common.enumtype.EStatus;
 import nta.bookstore.api.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "ORDER BY created_at DESC " +
             "LIMIT 1", nativeQuery = true)
     Optional<UserEntity> findLatestCreatedAccountByMail(String email);
+
+    Page<UserEntity> findAllByStatus(Pageable pageable, EStatus status);
 }

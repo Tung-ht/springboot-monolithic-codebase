@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserDto> getUsersDashboard(Pageable pageable) {
-        return userRepository.findAll(pageable)
+        return userRepository.findAllByStatus(pageable, EStatus.ACTIVE)
                 .map(userMapper::toDto);
     }
 

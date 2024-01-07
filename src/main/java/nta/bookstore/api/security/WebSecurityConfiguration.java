@@ -48,6 +48,7 @@ public class WebSecurityConfiguration {
     };
 
     final String[] adminEndpoints = {
+            "/orders/all-user"
     };
 
     @Bean
