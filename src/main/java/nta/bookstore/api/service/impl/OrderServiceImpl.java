@@ -7,7 +7,6 @@ import nta.bookstore.api.common.exception.AppException;
 import nta.bookstore.api.common.exception.NotFoundException;
 import nta.bookstore.api.common.mapper.OrderDetailMapper;
 import nta.bookstore.api.common.mapper.OrderMapper;
-import nta.bookstore.api.dto.OrderDetailDto;
 import nta.bookstore.api.dto.OrderDto;
 import nta.bookstore.api.entity.*;
 import nta.bookstore.api.repository.*;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
         OrderDto.Detail detailDto = orderMapper.toDetailDto(orderEntity);
         List<OrderDetailEntity> orderDetailEntities = orderDetailRepository.findAllByOrderId(orderId);
         detailDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetailEntities));
+        detailDto.setTotalValue(computeOrderTotalValue(orderId));
         return detailDto;
     }
 
@@ -44,12 +45,23 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto.Overview> getCurrentUserOrders(AuthUserDetails authUserDetails) {
         UserEntity userEntity = userRepository.findById(authUserDetails.getId()).orElseThrow(() -> new NotFoundException(ResponseConst.USER_NOT_FOUND));
         List<OrderEntity> orders = orderRepository.findAllByUserId(userEntity.getId());
-        return orderMapper.toOverviewDtos(orders);
+        return orders.stream()
+                .map(order -> {
+                    OrderDto.Overview overviewDto = orderMapper.toOverviewDto(order);
+                    overviewDto.setTotalValue(computeOrderTotalValue(order.getId()));
+                    return overviewDto;
+                }).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDto.Overview> getAllOrders() {
-        return orderMapper.toOverviewDtos(orderRepository.findAllAndOrderByCreatedAt());
+        List<OrderEntity> orders = orderRepository.findAllAndOrderByCreatedAt();
+        return orders.stream()
+                .map(order -> {
+                    OrderDto.Overview overviewDto = orderMapper.toOverviewDto(order);
+                    overviewDto.setTotalValue(computeOrderTotalValue(order.getId()));
+                    return overviewDto;
+                }).collect(Collectors.toList());
     }
 
     @Override
@@ -104,6 +116,7 @@ public class OrderServiceImpl implements OrderService {
 
         OrderDto.Detail detailDto = orderMapper.toDetailDto(orderEntity);
         detailDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetailEntities));
+        detailDto.setTotalValue(computeOrderTotalValue(orderEntity.getId()));
         return detailDto;
     }
 
@@ -121,8 +134,20 @@ public class OrderServiceImpl implements OrderService {
                 bookRepository.save(book);
             });
         }
-        OrderDto.Detail orderDto = orderMapper.toDetailDto(order);
-        orderDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetails));
-        return orderDto;
+        OrderDto.Detail detailDto = orderMapper.toDetailDto(order);
+        detailDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetails));
+        detailDto.setTotalValue(computeOrderTotalValue(order.getId()));
+        return detailDto;
+    }
+
+    public double computeOrderTotalValue(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException(ResponseConst.ORDER_NOT_FOUND));
+        List<OrderDetailEntity> orderDetails = orderDetailRepository.findAllByOrderId(orderId);
+        double totalOrderValue = 0;
+        for (OrderDetailEntity odt : orderDetails) {
+            totalOrderValue = totalOrderValue + odt.getQuantity() * odt.getSellingPrice();
+        }
+        return totalOrderValue;
     }
 }

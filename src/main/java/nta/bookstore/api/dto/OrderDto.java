@@ -22,7 +22,7 @@ public class OrderDto {
         private String phone;
         private String address;
         private EOrderStatus orderStatus;
-        private Long totalValue;
+        private Double totalValue;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }
@@ -37,7 +37,7 @@ public class OrderDto {
         private String phone;
         private String address;
         private EOrderStatus orderStatus;
-        private Long totalValue;
+        private Double totalValue;
         private List<OrderDetailDto> orderDetailDtos;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;

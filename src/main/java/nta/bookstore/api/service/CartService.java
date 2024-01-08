@@ -13,4 +13,6 @@ public interface CartService {
     CartItemDto updateCartItem(CartItemDto.Update updateDto);
 
     void deleteCartItem(CartItemDto.Delete deleteDto);
+
+    void clearCartItems(AuthUserDetails authUserDetails);
 }

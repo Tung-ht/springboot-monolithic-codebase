@@ -81,4 +81,12 @@ public class CartServiceImpl implements CartService {
     public void deleteCartItem(CartItemDto.Delete deleteDto) {
         cartItemRepository.deleteById(deleteDto.getCartItemId());
     }
+
+    @Override
+    public void clearCartItems(AuthUserDetails authUserDetails) {
+        UserEntity userEntity = userRepository.findById(authUserDetails.getId())
+                .orElseThrow(() -> new NotFoundException(ResponseConst.USER_NOT_FOUND));
+        List<CartItemEntity> userCart = cartItemRepository.findAllByUserId(userEntity.getId());
+        cartItemRepository.deleteAll(userCart);
+    }
 }

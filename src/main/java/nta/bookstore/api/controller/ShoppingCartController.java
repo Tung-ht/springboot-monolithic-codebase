@@ -36,4 +36,10 @@ public class ShoppingCartController {
         cartService.deleteCartItem(deleteDto);
         return AppResponse.ok();
     }
+
+    @DeleteMapping("/clear")
+    public AppResponse<?> clearCart(@AuthenticationPrincipal AuthUserDetails authUserDetails) {
+        cartService.clearCartItems(authUserDetails);
+        return AppResponse.ok();
+    }
 }

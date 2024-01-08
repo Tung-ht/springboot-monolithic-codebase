@@ -2,9 +2,7 @@ package nta.bookstore.api.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import nta.bookstore.api.common.enumtype.ECategory;
 import nta.bookstore.api.common.enumtype.EOrderStatus;
-import nta.bookstore.api.common.enumtype.EStatus;
 import nta.bookstore.api.dto.AppResponse;
 import nta.bookstore.api.dto.OrderDto;
 import nta.bookstore.api.security.AuthUserDetails;
