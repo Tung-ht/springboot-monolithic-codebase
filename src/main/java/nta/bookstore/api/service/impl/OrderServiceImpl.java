@@ -134,6 +134,7 @@ public class OrderServiceImpl implements OrderService {
                 bookRepository.save(book);
             });
         }
+        orderRepository.save(order);
         OrderDto.Detail detailDto = orderMapper.toDetailDto(order);
         detailDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetails));
         detailDto.setTotalValue(computeOrderTotalValue(order.getId()));
