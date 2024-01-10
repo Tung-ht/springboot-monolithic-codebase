@@ -7,6 +7,7 @@ import nta.bookstore.api.common.exception.NotFoundException;
 import nta.bookstore.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -32,6 +33,7 @@ public class MailSender {
     @Autowired
     private UserRepository userRepository;
 
+    @Async
     public void sendMail(String sendTo, EUserAction action) {
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
