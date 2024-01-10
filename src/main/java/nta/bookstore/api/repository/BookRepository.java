@@ -20,5 +20,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     Page<BookEntity> searchBooks(String keyword,
                                  ECategory category,
                                  Pageable pageable,
-                                 EStatus status                                 );
+                                 boolean status);
 }
