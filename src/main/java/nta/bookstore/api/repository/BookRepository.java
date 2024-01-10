@@ -1,6 +1,7 @@
 package nta.bookstore.api.repository;
 
 import nta.bookstore.api.common.enumtype.ECategory;
+import nta.bookstore.api.common.enumtype.EStatus;
 import nta.bookstore.api.entity.BookEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,10 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
             "FROM BookEntity b " +
             "WHERE (:keyword IS NULL OR b.title LIKE %:keyword% OR b.author LIKE %:keyword%) " +
             "AND (:category IS NULL OR b.category = :category) " +
+            "AND b.isActive = :status " +
             "ORDER BY b.title ASC ")
     Page<BookEntity> searchBooks(String keyword,
                                  ECategory category,
-                                 Pageable pageable);
+                                 Pageable pageable,
+                                 EStatus status                                 );
 }

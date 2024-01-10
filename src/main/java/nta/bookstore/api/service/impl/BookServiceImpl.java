@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nta.bookstore.api.common.constant.CommonConst;
 import nta.bookstore.api.common.constant.ResponseConst;
 import nta.bookstore.api.common.enumtype.ECategory;
+import nta.bookstore.api.common.enumtype.EStatus;
 import nta.bookstore.api.common.exception.AppException;
 import nta.bookstore.api.common.mapper.BookMapper;
 import nta.bookstore.api.common.utils.DataUtils;
@@ -40,7 +41,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<BookDto> searchBooks(BookDto.SearchParam searchParam) {
         Pageable pageable = DataUtils.mapPageDtoToPageable(searchParam.getPage(), searchParam.getSize());
-        return bookRepository.searchBooks(searchParam.getKeyword(), searchParam.getCategory(), pageable)
+        return bookRepository.searchBooks(searchParam.getKeyword(), searchParam.getCategory(), pageable, EStatus.ACTIVE)
                 .map(book -> {
                     BookDto dto = bookMapper.toDto(book);
                     dto.setImageBase64Src(imageService.loadImageAsBase64Source(book.getImgUrl()));
@@ -50,7 +51,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto saveBook(BookDto.Save bookDto) {
-        BookEntity entity = bookRepository.save(bookMapper.toEntity(bookDto));
+        BookEntity entity = bookMapper.toEntity(bookDto);
+        entity.setIsActive(true);
+        bookRepository.save(entity);
         String imageName = imageService.uploadImage(bookDto.getImgFile(), CommonConst.BOOK_IMAGE_PREFIX + entity.getId());
         entity.setImgUrl(imageName);
         bookRepository.save(entity);
@@ -63,8 +66,10 @@ public class BookServiceImpl implements BookService {
     public void deleteBookById(Long id) {
         BookEntity book = bookRepository.findById(id)
                 .orElseThrow(() -> new AppException(ResponseConst.NOT_FOUND_CODE, ResponseConst.BOOK_NOT_FOUND));
-        bookRepository.delete(book);
-        imageService.deleteImage(book.getImgUrl());
+//        bookRepository.delete(book);
+//        imageService.deleteImage(book.getImgUrl());
+        book.setIsActive(false);
+        bookRepository.save(book);
     }
 
     @Override

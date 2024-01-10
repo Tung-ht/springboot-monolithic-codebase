@@ -29,4 +29,5 @@ public class BookEntity extends BaseEntity {
     private Long remainingQuantity;
     private Double importingPrice;
     private Double sellingPrice;
+    private Boolean isActive;
 }
