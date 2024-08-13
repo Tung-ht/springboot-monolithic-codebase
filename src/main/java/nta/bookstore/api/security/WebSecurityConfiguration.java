@@ -29,6 +29,7 @@ public class WebSecurityConfiguration {
     }
 
     final String[] generalEndpoints = {
+            "/test/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
