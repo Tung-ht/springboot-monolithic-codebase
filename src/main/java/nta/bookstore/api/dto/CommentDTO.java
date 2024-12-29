@@ -16,6 +16,7 @@ public class CommentDTO {
     private String fullName;
     private List<CommentDTO> children;
     private Long bookId;
+    private Long parentCommentId;
     private Long replyToUserId; //user_id
     private String replyToFullName;
     private String content;

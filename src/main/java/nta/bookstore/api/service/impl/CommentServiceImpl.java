@@ -28,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
     private final BookRepository bookRepository;
     private final NotificationRepository notificationRepository;
 
+    @Transactional
     @Override
     public List<CommentDTO> getListCommentsByBook(Long bookId) {
         // Get all lv1 comments for the book
@@ -45,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
         CommentEntity comment = new CommentEntity();
 
         // If updating existing comment
-        if (saveReq.getId() != 0) {
+        if (saveReq.getId() != null) {
             comment = commentRepository.findById(saveReq.getId())
                     .orElseThrow(() -> new NotFoundException(CommentEntity.class));
             comment.setContent(saveReq.getContent());
@@ -103,17 +104,24 @@ public class CommentServiceImpl implements CommentService {
                 .map(this::convertToCommentDTO)
                 .collect(Collectors.toList());
 
-        return CommentDTO.builder()
+        CommentDTO dto = CommentDTO.builder()
                 .id(comment.getId())
                 .userId(comment.getUser().getId())
                 .fullName(comment.getUser().getFullName())
                 .children(childComments)
                 .bookId(comment.getBook().getId())
-                .replyToUserId(comment.getReplyToUser().getId())
-                .replyToFullName(comment.getReplyToUser().getFullName())
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
                 .build();
+        if (comment.getReplyToUser() != null) {
+            dto.setReplyToUserId(comment.getReplyToUser().getId());
+            dto.setReplyToFullName(comment.getReplyToUser().getFullName());
+        }
+
+        if (comment.getParent() != null) {
+            dto.setParentCommentId(comment.getParent().getId());
+        }
+        return dto;
     }
 }
