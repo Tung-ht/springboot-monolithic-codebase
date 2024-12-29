@@ -45,6 +45,7 @@ public class WebSecurityConfiguration {
     final String[] userEndpoints = {
             "/users/shipping-info",
             "/shopping-cart-items/**",
+            "/comments/**"
     };
 
     final String[] adminEndpoints = {

@@ -1,21 +1,8 @@
 version: "3.8"
 name: nta-bookstore
 services:
-  app:
-    image: tunght100700/nta-bookstore:latest
-    ports:
-      - 8889:8888
-    depends_on:
-      - db
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-#      inside container port
-      - SPRING_PROFILES_PORT=8888
-    networks:
-      - app-network
-    restart: unless-stopped
-
   db:
+    container_name: book_store_postgres
     image: mysql:8.0.28
     ports:
       - 3307:3306

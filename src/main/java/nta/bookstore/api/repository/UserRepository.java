@@ -25,4 +25,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findLatestCreatedAccountByMail(String email);
 
     Page<UserEntity> findAllByStatus(Pageable pageable, EStatus status);
+
+    @Query("SELECT u " +
+            "FROM UserEntity u " +
+            "WHERE u.id = :id " +
+            "AND u.status = 'ACTIVE' ")
+    UserEntity findActiveUserById(Long id);
 }

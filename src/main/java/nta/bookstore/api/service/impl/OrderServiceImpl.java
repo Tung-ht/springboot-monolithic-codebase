@@ -2,6 +2,7 @@ package nta.bookstore.api.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nta.bookstore.api.common.constant.ResponseConst;
+import nta.bookstore.api.common.enumtype.ENotifications;
 import nta.bookstore.api.common.enumtype.EOrderStatus;
 import nta.bookstore.api.common.exception.AppException;
 import nta.bookstore.api.common.exception.NotFoundException;
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private final CartItemRepository cartItemRepository;
     private final OrderDetailMapper orderDetailMapper;
     private final OrderMapper orderMapper;
+    private final NotificationRepository notificationRepository;
 
     @Override
     public OrderDto.Detail getOrder(Long orderId) {
@@ -120,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
         return detailDto;
     }
 
+    @Transactional
     @Override
     public OrderDto.Detail updateOrder(Long orderId, OrderDto.Update updateDto) {
         OrderEntity order = orderRepository.findById(orderId)
@@ -135,6 +138,16 @@ public class OrderServiceImpl implements OrderService {
             });
         }
         orderRepository.save(order);
+
+        // create notification to user
+        NotificationEntity newNotification = NotificationEntity.builder()
+                .type(ENotifications.ORDER_STATUS_UPDATED)
+                .user(order.getUser())
+                .message(ENotifications.getNotificationMessage(ENotifications.ORDER_STATUS_UPDATED, String.valueOf(orderId)))
+                .isRead(false)
+                .build();
+        notificationRepository.save(newNotification);
+
         OrderDto.Detail detailDto = orderMapper.toDetailDto(order);
         detailDto.setOrderDetailDtos(orderDetailMapper.toDtos(orderDetails));
         detailDto.setTotalValue(computeOrderTotalValue(order.getId()));

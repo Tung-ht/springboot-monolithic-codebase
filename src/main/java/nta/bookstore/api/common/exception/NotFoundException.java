@@ -12,4 +12,10 @@ public class NotFoundException extends AppException {
         this.code = ResponseConst.NOT_FOUND_CODE;
         this.message = message;
     }
+
+    public NotFoundException(Class<?> entityClass) {
+        super();
+        this.code = ResponseConst.NOT_FOUND_CODE;
+        this.message = entityClass.getName() + "_NOT_FOUND";
+    }
 }
