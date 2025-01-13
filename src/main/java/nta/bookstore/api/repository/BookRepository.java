@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("SELECT b " +
@@ -21,4 +23,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
                                  ECategory category,
                                  Pageable pageable,
                                  boolean status);
+    @Query("SELECT b " +
+            "FROM BookEntity b " +
+            "WHERE b.isActive = true ")
+    List<BookEntity> findAllActiveBooks();
 }

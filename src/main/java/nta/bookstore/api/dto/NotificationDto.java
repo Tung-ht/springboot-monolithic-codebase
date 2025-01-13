@@ -16,10 +16,7 @@ public class NotificationDto {
     private Long id;
     private ENotifications type;
     private Long userId;
-    private Long bookId;
-    private Long fromUserId;
     private String message;
     private Boolean isRead;
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
 }

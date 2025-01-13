@@ -31,4 +31,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "WHERE u.id = :id " +
             "AND u.status = 'ACTIVE' ")
     UserEntity findActiveUserById(Long id);
+
+    @Query("SELECT COUNT(u) " +
+            "FROM UserEntity u " +
+            "WHERE u.status = 'ACTIVE' ")
+    Long countActiveUsers();
 }

@@ -16,4 +16,9 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("SELECT od FROM OrderEntity od ORDER BY od.createdAt DESC ")
     List<OrderEntity> findAllAndOrderByCreatedAt();
+
+    @Query("SELECT o " +
+            "FROM OrderEntity o " +
+            "WHERE o.orderStatus = 'COMPLETED' ")
+    List<OrderEntity> getAllCompletedOrders();
 }

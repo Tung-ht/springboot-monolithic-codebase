@@ -21,12 +21,9 @@ public class NotificationService {
                         .id(entity.getId())
                         .type(entity.getType())
                         .userId(entity.getUser().getId())
-                        .bookId(entity.getBook().getId())
-                        .fromUserId(entity.getFromUserId())
                         .message(entity.getMessage())
                         .isRead(entity.getIsRead())
                         .createdAt(entity.getCreatedAt())
-                        .modifiedAt(entity.getModifiedAt())
                         .build()
                 ).collect(Collectors.toList());
     }

@@ -25,9 +25,9 @@ public class BookEntity extends BaseEntity {
     private String imgUrl;
     @Enumerated(EnumType.STRING)
     private ECategory category;
-    private Long soldQuantity;
-    private Long remainingQuantity;
-    private Double importingPrice;
-    private Double sellingPrice;
+    private long soldQuantity;
+    private long remainingQuantity;
+    private double importingPrice;
+    private double sellingPrice;
     private Boolean isActive;
 }

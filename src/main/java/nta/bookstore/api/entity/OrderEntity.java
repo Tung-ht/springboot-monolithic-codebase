@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import nta.bookstore.api.common.enumtype.EOrderStatus;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,7 @@ public class OrderEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private EOrderStatus orderStatus;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetailEntity> orderDetailEntityList;
 }
